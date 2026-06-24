@@ -1,8 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // এটি ইমপোর্ট করা হয়েছে
 
 export default function Footer() {
+  const pathname = usePathname(); // বর্তমান রুট পাওয়ার জন্য
+
+  // যেসব রুটে Footer দেখাতে চান না, সেগুলোর লিস্ট
+  const hiddenRoutes = ["/login", "/register"];
+
+  // কারেন্ট রুট যদি লিস্টের মধ্যে থাকে, তাহলে Footer হাইড হয়ে যাবে
+  if (hiddenRoutes.includes(pathname)) {
+    return null;
+  }
+
   return (
     <footer className="border-t border-white/10 bg-slate-950 text-white">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">

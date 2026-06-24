@@ -1,15 +1,180 @@
+"use client";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Link from "next/link";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
+
 export default function BrowseOpportunitiesPage() {
+  const [opportunities, setOpportunities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [workType, setWorkType] = useState("");
+  const [industry, setIndustry] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const fetchOpportunities = async () => {
+    setLoading(true);
+    try {
+      const params = {
+        search,
+        page,
+        limit: 6,
+      };
+      if (workType) params.work_type = workType;
+      if (industry) params.industry = industry;
+
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/opportunities`, {
+        params,
+      });
+      setOpportunities(res.data.opportunities);
+      setTotalPages(res.data.totalPages);
+    } catch (err) {
+      console.error("Error fetching opportunities:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchOpportunities();
+    }, 300); // Debounce search
+    return () => clearTimeout(timer);
+  }, [search, workType, industry, page]);
+
   return (
-    <div className="browse-opportunities-page">
-      {/*
-        TODO: Implement features:
-        - Server-side pagination
-        - Search by role_title & required_skills (MongoDB $regex)
-        - Filter by work_type & industry (MongoDB $in)
-      */}
-      <h1>Browse Opportunities</h1>
-      <p>Find your next startup role. Search and filter opportunities.</p>
-      {/* Search bar, filters, opportunity cards, and pagination will go here */}
+    <div className="min-h-screen bg-slate-950 text-white py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto space-y-10">
+        <div className="text-center space-y-4">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+            Browse <span className="text-blue-500">Opportunities</span>
+          </h1>
+          <p className="text-slate-400 max-w-xl mx-auto text-base sm:text-lg">
+            Find your next startup role. Connect with founder teams looking for developers, designers, and marketers.
+          </p>
+        </div>
+
+        {/* Search and Filter Panel */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-900 border border-white/10 p-5 rounded-2xl">
+          <input
+            type="text"
+            placeholder="Search roles or skills (e.g. React)..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1);
+            }}
+            className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 text-sm outline-none focus:border-blue-500"
+          />
+
+          <select
+            value={workType}
+            onChange={(e) => {
+              setWorkType(e.target.value);
+              setPage(1);
+            }}
+            className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-slate-300 text-sm outline-none focus:border-blue-500"
+          >
+            <option value="">All Work Types</option>
+            <option value="Remote">Remote</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Onsite">Onsite</option>
+          </select>
+
+          <input
+            type="text"
+            placeholder="Filter by Industry (e.g. SaaS, Fintech)..."
+            value={industry}
+            onChange={(e) => {
+              setIndustry(e.target.value);
+              setPage(1);
+            }}
+            className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white placeholder-slate-500 text-sm outline-none focus:border-blue-500"
+          />
+        </div>
+
+        {/* List of Opportunity Cards */}
+        {loading ? (
+          <LoadingSpinner />
+        ) : opportunities.length === 0 ? (
+          <div className="text-center py-16 text-slate-500 bg-slate-900/50 border border-white/5 rounded-3xl">
+            No opportunities found matching your criteria.
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {opportunities.map((opp) => (
+                <div key={opp._id} className="bg-slate-900 border border-white/10 rounded-2xl p-6 flex flex-col justify-between hover:border-blue-500/50 transition-all duration-300 shadow-xl group">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4">
+                      <img
+                        src={opp.startup_id?.logo || "/default-startup.png"}
+                        alt={opp.startup_id?.startup_name}
+                        className="w-12 h-12 rounded-xl object-cover border border-white/10"
+                      />
+                      <div>
+                        <h3 className="font-bold text-lg text-white group-hover:text-blue-400 transition">
+                          {opp.role_title}
+                        </h3>
+                        <p className="text-slate-400 text-sm">
+                          {opp.startup_id?.startup_name}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5">
+                      {opp.required_skills.split(",").map((skill, idx) => (
+                        <span key={idx} className="bg-blue-500/10 text-blue-300 text-xs px-2.5 py-1 rounded-full font-medium">
+                          {skill.trim()}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-450 bg-slate-950/50 p-3 rounded-xl">
+                      <p><span className="font-semibold text-slate-300">Type:</span> {opp.work_type}</p>
+                      <p><span className="font-semibold text-slate-300">Commit:</span> {opp.commitment_level}</p>
+                      <p className="col-span-2"><span className="font-semibold text-slate-300">Deadline:</span> {new Date(opp.deadline).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+
+                  <div className="pt-5 border-t border-white/5 mt-5">
+                    <Link
+                      href={`/opportunities/${opp._id}`}
+                      className="w-full flex items-center justify-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 rounded-xl transition text-sm cursor-pointer"
+                    >
+                      View Details & Apply
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-4 pt-6">
+                <button
+                  disabled={page === 1}
+                  onClick={() => setPage((prev) => prev - 1)}
+                  className="bg-slate-900 hover:bg-slate-800 border border-white/10 px-4 py-2 rounded-xl text-sm font-medium transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  ◀ Previous
+                </button>
+                <span className="text-sm font-semibold text-slate-300">
+                  Page {page} of {totalPages}
+                </span>
+                <button
+                  disabled={page === totalPages}
+                  onClick={() => setPage((prev) => prev + 1)}
+                  className="bg-slate-900 hover:bg-slate-800 border border-white/10 px-4 py-2 rounded-xl text-sm font-medium transition disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  Next ▶
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }

@@ -14,6 +14,17 @@ export const AuthProvider = ({ children }) => {
     const fetchDbUser = async () => {
       if (session?.user?.email) {
         try {
+          // Sync session to server JWT cookie
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/jwt`,
+            {
+              email: session.user.email,
+              role: session.user.role || "collaborator",
+            },
+            { withCredentials: true }
+          );
+
+          // Now retrieve the user from the database
           const res = await axios.get(
             `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session.user.email}`,
             { withCredentials: true }
