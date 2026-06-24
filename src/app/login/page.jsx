@@ -51,9 +51,10 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     setGoogleLoading(true);
     try {
+      const clientUrl = process.env.NEXT_PUBLIC_CLIENT_URL || "http://localhost:3000";
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: callbackUrl,
+        callbackURL: `${clientUrl}${callbackUrl.startsWith("/") ? callbackUrl : "/" + callbackUrl}`,
       });
     } catch (err) {
       toast.error("Google login failed!");

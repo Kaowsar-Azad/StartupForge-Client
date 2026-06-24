@@ -57,9 +57,14 @@ export default function Navbar() {
             Opportunities
           </Link>
           {isAuthenticated && (
-            <Link href="/dashboard" className={`text-sm font-medium transition ${pathname.startsWith("/dashboard") ? "text-blue-400" : "text-slate-300 hover:text-white"}`}>
-              Dashboard
-            </Link>
+            <>
+              <Link href="/dashboard" className={`text-sm font-medium transition ${pathname.startsWith("/dashboard") ? "text-blue-400" : "text-slate-300 hover:text-white"}`}>
+                Dashboard
+              </Link>
+              <Link href="/profile" className={`text-sm font-medium transition ${pathname === "/profile" ? "text-blue-400" : "text-slate-300 hover:text-white"}`}>
+                Profile
+              </Link>
+            </>
           )}
         </nav>
 
@@ -125,9 +130,14 @@ export default function Navbar() {
               Opportunities
             </Link>
             {isAuthenticated && (
-              <Link href="/dashboard" onClick={() => setIsOpen(false)} className={`py-2 text-sm transition ${pathname.startsWith("/dashboard") ? "text-blue-400" : "text-slate-300 hover:text-white"}`}>
-                Dashboard
-              </Link>
+              <>
+                <Link href="/dashboard" onClick={() => setIsOpen(false)} className={`py-2 text-sm transition ${pathname.startsWith("/dashboard") ? "text-blue-400" : "text-slate-300 hover:text-white"}`}>
+                  Dashboard
+                </Link>
+                <Link href="/profile" onClick={() => setIsOpen(false)} className={`py-2 text-sm transition ${pathname === "/profile" ? "text-blue-400" : "text-slate-300 hover:text-white"}`}>
+                  Profile
+                </Link>
+              </>
             )}
             
             <div className="border-t border-white/10 my-2 pt-2">

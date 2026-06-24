@@ -17,7 +17,9 @@ export default function FounderApplicationsPage() {
       );
       setApplications(res.data);
     } catch (err) {
-      console.error("Error fetching applications:", err);
+      if (err.response?.status !== 404) {
+        console.error("Error fetching applications:", err);
+      }
     } finally {
       setLoading(false);
     }

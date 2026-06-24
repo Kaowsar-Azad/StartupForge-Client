@@ -98,85 +98,125 @@ export default function CollaboratorProfilePage() {
 
   return (
     <PrivateRoute allowedRoles={["collaborator"]}>
-      <div className="max-w-3xl mx-auto space-y-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
+        {/* Header Section */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">My Profile</h1>
-          <p className="text-gray-500 dark:text-slate-400 mt-1">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+            My Profile
+          </h1>
+          <p className="text-sm sm:text-base text-gray-500 dark:text-slate-400 mt-2">
             Update your collaborator profile details, bio, and expertise.
           </p>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-3xl p-8 shadow-sm">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-gray-100 dark:border-slate-800">
-              <img
-                src={imageUrl || "/default-avatar.png"}
-                alt={name}
-                className="w-24 h-24 rounded-full object-cover border-2 border-blue-500 shadow-sm"
-              />
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-slate-350 mb-2">Change Profile Picture</label>
+        {/* Form Card */}
+        <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm transition-all duration-300">
+          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+            
+            {/* Image Upload Section */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6 pb-6 sm:pb-8 border-b border-gray-100 dark:border-slate-800">
+              <div className="shrink-0 relative">
+                <img
+                  src={imageUrl || "/default-avatar.png"}
+                  alt={name}
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-white dark:border-slate-800 shadow-md ring-2 ring-blue-500/30"
+                />
+              </div>
+              <div className="w-full">
+                <label className="block text-sm font-semibold text-gray-800 dark:text-slate-200 mb-2">
+                  Profile Picture
+                </label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={(e) => setImageFile(e.target.files[0])}
-                  className="w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-xs file:font-semibold file:text-blue-600 hover:file:bg-blue-100 cursor-pointer"
+                  className="block w-full text-sm text-gray-500 dark:text-slate-400 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 dark:file:bg-blue-900/30 file:px-5 file:py-2.5 file:text-sm file:font-semibold file:text-blue-600 dark:file:text-blue-400 hover:file:bg-blue-100 dark:hover:file:bg-blue-900/50 cursor-pointer transition-colors"
                 />
+                <p className="mt-2 text-xs text-gray-400 dark:text-slate-500">
+                  Recommended: Square image, max 2MB.
+                </p>
               </div>
             </div>
 
+            {/* Inputs Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Full Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-705 dark:text-slate-300 mb-2">Full Name *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                  Full Name <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-xl border border-gray-300 dark:border-slate-800 bg-gray-50 dark:bg-slate-900 px-4 py-3 text-gray-900 dark:text-white text-sm outline-none focus:border-blue-500"
+                  placeholder="Enter your full name"
+                  className="w-full rounded-xl border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 px-4 py-3 text-gray-900 dark:text-white text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                 />
               </div>
 
+              {/* Email (Disabled) */}
               <div>
-                <label className="block text-sm font-medium text-gray-705 dark:text-slate-300 mb-2">Email Address</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                  Email Address
+                </label>
                 <input
                   type="email"
                   disabled
                   value={user?.email || ""}
-                  className="w-full rounded-xl border border-gray-300 dark:border-slate-800 bg-gray-100 dark:bg-slate-800/50 px-4 py-3 text-gray-500 text-sm outline-none cursor-not-allowed"
+                  className="w-full rounded-xl border border-gray-200 dark:border-slate-800 bg-gray-100 dark:bg-slate-900/50 px-4 py-3 text-gray-500 dark:text-slate-500 text-sm outline-none cursor-not-allowed opacity-80"
                 />
               </div>
             </div>
 
+            {/* Skills */}
             <div>
-              <label className="block text-sm font-medium text-gray-705 dark:text-slate-300 mb-2">Skills (Comma separated, e.g. React, UI/UX, SEO)</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                Skills <span className="text-gray-400 font-normal">(Comma separated, e.g. React, UI/UX, SEO)</span>
+              </label>
               <input
                 type="text"
                 value={skills}
                 onChange={(e) => setSkills(e.target.value)}
                 placeholder="e.g. Next.js, Figma, Digital Marketing"
-                className="w-full rounded-xl border border-gray-300 dark:border-slate-800 bg-gray-50 dark:bg-slate-900 px-4 py-3 text-gray-900 dark:text-white text-sm outline-none focus:border-blue-500"
+                className="w-full rounded-xl border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 px-4 py-3 text-gray-900 dark:text-white text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
               />
             </div>
 
+            {/* Bio */}
             <div>
-              <label className="block text-sm font-medium text-gray-705 dark:text-slate-300 mb-2">Short Bio</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+                Short Bio
+              </label>
               <textarea
                 rows={4}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 placeholder="Write a brief description about your experience, achievements, and what you are looking for..."
-                className="w-full rounded-xl border border-gray-300 dark:border-slate-800 bg-gray-50 dark:bg-slate-900 px-4 py-3 text-gray-900 dark:text-white text-sm outline-none focus:border-blue-500 resize-none"
+                className="w-full rounded-xl border border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 px-4 py-3 text-gray-900 dark:text-white text-sm outline-none transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 resize-y"
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={submitLoading}
-              className="bg-blue-600 hover:bg-blue-500 text-white font-medium px-6 py-3 rounded-xl transition text-sm disabled:bg-blue-400 flex items-center gap-2 cursor-pointer"
-            >
-              {submitLoading ? "Saving Changes..." : "Save Profile Details"}
-            </button>
+            {/* Submit Button */}
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={submitLoading}
+                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3.5 rounded-xl transition-all duration-200 text-sm disabled:bg-blue-400 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
+              >
+                {submitLoading ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Saving Changes...
+                  </>
+                ) : (
+                  "Save Profile Details"
+                )}
+              </button>
+            </div>
           </form>
         </div>
       </div>

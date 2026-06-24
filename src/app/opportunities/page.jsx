@@ -124,7 +124,7 @@ export default function BrowseOpportunitiesPage() {
                     </div>
 
                     <div className="flex flex-wrap gap-1.5">
-                      {opp.required_skills.split(",").map((skill, idx) => (
+                      {(Array.isArray(opp.required_skills) ? opp.required_skills : (opp.required_skills || "").split(",")).map((skill, idx) => (
                         <span key={idx} className="bg-blue-500/10 text-blue-300 text-xs px-2.5 py-1 rounded-full font-medium">
                           {skill.trim()}
                         </span>

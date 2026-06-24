@@ -131,7 +131,7 @@ export default function OpportunityDetailsPage() {
           <div>
             <h2 className="text-lg font-bold text-white mb-2">Required Skills</h2>
             <div className="flex flex-wrap gap-2">
-              {opportunity.required_skills.split(",").map((skill, idx) => (
+              {(Array.isArray(opportunity.required_skills) ? opportunity.required_skills : (opportunity.required_skills || "").split(",")).map((skill, idx) => (
                 <span key={idx} className="bg-slate-800 text-slate-200 text-sm px-3.5 py-1.5 rounded-xl font-medium">
                   {skill.trim()}
                 </span>
