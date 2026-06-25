@@ -42,7 +42,7 @@ export default function LoginPage() {
         // Sync session to server JWT cookie synchronously before redirecting
         try {
           await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/jwt`,
+            `/api/auth/jwt`,
             {
               email: data.user.email,
               role: data.user.role || "collaborator",

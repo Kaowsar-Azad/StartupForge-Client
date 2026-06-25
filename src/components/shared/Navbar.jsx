@@ -8,6 +8,12 @@ import { authClient } from "@/lib/auth";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const apiBase =
+  typeof window !== "undefined" &&
+  !(process.env.NEXT_PUBLIC_API_URL || "").includes("localhost")
+    ? ""
+    : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -23,7 +29,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`,
+        `${apiBase}/api/auth/logout`,
         {},
         { withCredentials: true }
       );

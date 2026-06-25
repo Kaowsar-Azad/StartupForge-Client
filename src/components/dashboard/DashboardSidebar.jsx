@@ -6,6 +6,12 @@ import { authClient } from "@/lib/auth";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const apiBase =
+  typeof window !== "undefined" &&
+  !(process.env.NEXT_PUBLIC_API_URL || "").includes("localhost")
+    ? ""
+    : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 const founderLinks = [
   { href: "/dashboard/founder", label: "Overview", icon: "📊" },
   { href: "/dashboard/founder/my-startup", label: "My Startup", icon: "🚀" },
@@ -42,7 +48,7 @@ export default function DashboardSidebar() {
   const handleLogout = async () => {
     try {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`,
+        `${apiBase}/api/auth/logout`,
         {},
         { withCredentials: true }
       );

@@ -7,6 +7,14 @@ import axios from "axios";
 
 const AuthContext = createContext(null);
 
+// Resolve API base URL: use relative path in production browser (via Next.js proxy),
+// full URL in local dev or server-side
+const apiBase =
+  typeof window !== "undefined" &&
+  !(process.env.NEXT_PUBLIC_API_URL || "").includes("localhost")
+    ? "" // relative in production browser
+    : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export const AuthProvider = ({ children }) => {
   const router = useRouter();
   const { data: session, isPending } = useSession();
@@ -20,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         try {
           // Sync session to server JWT cookie
           await axios.post(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/jwt`,
+            `${apiBase}/api/auth/jwt`,
             {
               email: session.user.email,
               role: session.user.role || "collaborator",
@@ -32,7 +40,7 @@ export const AuthProvider = ({ children }) => {
 
           // Now retrieve the user from the database
           const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session.user.email}`,
+            `${apiBase}/api/users/${session.user.email}`,
             { withCredentials: true }
           );
           setDbUser(res.data);
@@ -43,7 +51,7 @@ export const AuthProvider = ({ children }) => {
             setAuthError(true);
             try {
               await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`,
+                `${apiBase}/api/auth/logout`,
                 {},
                 { withCredentials: true }
               );
