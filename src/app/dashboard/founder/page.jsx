@@ -6,6 +6,18 @@ import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 import Link from "next/link";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
 export default function FounderOverviewPage() {
   const { user } = useAuth();
@@ -15,6 +27,7 @@ export default function FounderOverviewPage() {
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
   const [upgrading, setUpgrading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const fetchFounderData = async () => {
     if (!user?.email) return;
@@ -59,6 +72,7 @@ export default function FounderOverviewPage() {
   };
 
   useEffect(() => {
+    setIsMounted(true);
     fetchFounderData();
   }, [user]);
 
@@ -84,6 +98,34 @@ export default function FounderOverviewPage() {
   const totalOpps = opportunities.length;
   const totalApps = applications.length;
   const acceptedMembers = applications.filter((app) => app.status === "accepted").length;
+
+  // Process data for charts
+  // 1. Applications by Status Pie Chart
+  const statusCounts = applications.reduce((acc, app) => {
+    const status = app.status || "pending";
+    acc[status] = (acc[status] || 0) + 1;
+    return acc;
+  }, {});
+
+  const statusData = [
+    { name: "Pending", value: statusCounts.pending || 0 },
+    { name: "Accepted", value: statusCounts.accepted || 0 },
+    { name: "Rejected", value: statusCounts.rejected || 0 },
+  ];
+
+  const STATUS_COLORS = ["#f59e0b", "#10b981", "#ef4444"];
+
+  // 2. Applications per Opportunity Bar Chart
+  const appsPerOpp = applications.reduce((acc, app) => {
+    const title = app.opportunity_id?.role_title || "Unknown";
+    acc[title] = (acc[title] || 0) + 1;
+    return acc;
+  }, {});
+
+  const oppData = Object.entries(appsPerOpp).map(([role, count]) => ({
+    role: role.length > 15 ? role.substring(0, 15) + "..." : role,
+    applications: count,
+  }));
 
   return (
     <PrivateRoute allowedRoles={["founder"]}>
@@ -159,6 +201,95 @@ export default function FounderOverviewPage() {
               <StatsCard title="Total Applications" value={totalApps} icon="📋" color="#10b981" />
               <StatsCard title="Accepted Members" value={acceptedMembers} icon="✅" color="#f59e0b" />
             </div>
+
+            {/* Recharts Analytics Section */}
+            {isMounted && (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Applications per Opportunity */}
+                <div className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Applications per Opportunity</h2>
+                  <div className="h-72 w-full">
+                    {oppData.length > 0 ? (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={oppData}>
+                          <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                          <XAxis dataKey="role" stroke="#94a3b8" fontSize={11} />
+                          <YAxis stroke="#94a3b8" allowDecimals={false} />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: "rgba(15, 23, 42, 0.9)",
+                              borderColor: "#334155",
+                              color: "#fff",
+                              borderRadius: "12px",
+                            }}
+                          />
+                          <Bar dataKey="applications" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    ) : (
+                      <div className="h-full flex items-center justify-center text-slate-400 text-sm">
+                        Create opportunities to see metrics.
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Application Status Distribution */}
+                <div className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Application Status</h2>
+                  <div className="h-72 w-full flex flex-col sm:flex-row items-center justify-center">
+                    <div className="h-56 w-56">
+                      {totalApps > 0 ? (
+                        <ResponsiveContainer width="100%" height="100%">
+                          <PieChart>
+                            <Pie
+                              data={statusData}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={50}
+                              outerRadius={70}
+                              paddingAngle={5}
+                              dataKey="value"
+                            >
+                              {statusData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={STATUS_COLORS[index % STATUS_COLORS.length]} />
+                              ))}
+                            </Pie>
+                            <Tooltip
+                              contentStyle={{
+                                backgroundColor: "rgba(15, 23, 42, 0.9)",
+                                borderColor: "#334155",
+                                color: "#fff",
+                                borderRadius: "12px",
+                              }}
+                            />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      ) : (
+                        <div className="h-full flex items-center justify-center text-slate-400 text-sm">
+                          No applications.
+                        </div>
+                      )}
+                    </div>
+                    {totalApps > 0 && (
+                      <div className="flex flex-col gap-2 mt-4 sm:mt-0 sm:ml-6">
+                        {statusData.map((entry, index) => (
+                          <div key={entry.name} className="flex items-center gap-2">
+                            <span
+                              className="w-3 h-3 rounded-full"
+                              style={{ backgroundColor: STATUS_COLORS[index % STATUS_COLORS.length] }}
+                            />
+                            <span className="text-gray-600 dark:text-slate-300 text-sm font-medium">
+                              {entry.name}: {entry.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Recent activity list */}
             <div className="bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
