@@ -5,10 +5,15 @@ import SuccessStories from "@/components/home/SuccessStories";
 import WhyJoin from "@/components/home/WhyJoin";
 
 async function getFeaturedData() {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  // Skip fetch if API URL is missing or is localhost (won't work server-side on Vercel)
+  if (!apiUrl || apiUrl.includes("localhost")) {
+    return { startups: [], opportunities: [] };
+  }
   try {
     const [startupsRes, opportunitiesRes] = await Promise.all([
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/startups/featured`, { cache: "no-store" }),
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/opportunities/featured`, { cache: "no-store" }),
+      fetch(`${apiUrl}/api/startups/featured`, { cache: "no-store" }),
+      fetch(`${apiUrl}/api/opportunities/featured`, { cache: "no-store" }),
     ]);
     const startups = startupsRes.ok ? await startupsRes.json() : [];
     const opportunities = opportunitiesRes.ok ? await opportunitiesRes.json() : [];
