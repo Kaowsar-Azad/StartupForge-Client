@@ -1,14 +1,18 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth";
+import { authClient } from "@/lib/auth";
 import axios from "axios";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const router = useRouter();
   const { data: session, isPending } = useSession();
   const [dbUser, setDbUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [authError, setAuthError] = useState(false);
 
   useEffect(() => {
     const fetchDbUser = async () => {
@@ -20,6 +24,8 @@ export const AuthProvider = ({ children }) => {
             {
               email: session.user.email,
               role: session.user.role || "collaborator",
+              name: session.user.name || "Unknown User",
+              image: session.user.image || "",
             },
             { withCredentials: true }
           );
@@ -30,7 +36,27 @@ export const AuthProvider = ({ children }) => {
             { withCredentials: true }
           );
           setDbUser(res.data);
+          setAuthError(false);
         } catch (error) {
+          const status = error?.response?.status;
+          if (status === 401 || status === 403) {
+            setAuthError(true);
+            try {
+              await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`,
+                {},
+                { withCredentials: true }
+              );
+            } catch (logoutError) {
+              console.error("Failed to clear server auth cookie:", logoutError);
+            }
+            try {
+              await authClient.signOut();
+            } catch (signOutError) {
+              console.error("Failed to sign out blocked user:", signOutError);
+            }
+            router.push("/login");
+          }
           console.error("Failed to fetch user from DB:", error);
         }
       }
@@ -39,10 +65,10 @@ export const AuthProvider = ({ children }) => {
     if (!isPending) {
       fetchDbUser();
     }
-  }, [session, isPending]);
+  }, [session, isPending, router]);
 
-  const user = dbUser || session?.user;
-  const isAuthenticated = !!session;
+  const user = authError || loading ? null : dbUser || session?.user;
+  const isAuthenticated = !!session && !authError && !loading;
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, loading: isPending || loading, session }}>

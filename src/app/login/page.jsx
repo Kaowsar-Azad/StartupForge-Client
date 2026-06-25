@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeSlash } from "@gravity-ui/icons";
 
+import axios from "axios";
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +39,22 @@ export default function LoginPage() {
       if (error) {
         toast.error(error.message || "Login failed. Please try again.");
       } else {
+        // Sync session to server JWT cookie synchronously before redirecting
+        try {
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/jwt`,
+            {
+              email: data.user.email,
+              role: data.user.role || "collaborator",
+              name: data.user.name || "Unknown User",
+              image: data.user.image || "",
+            },
+            { withCredentials: true }
+          );
+        } catch (syncErr) {
+          console.error("JWT Sync error on login:", syncErr);
+        }
+
         toast.success("Login successful! 🎉");
         router.push(callbackUrl);
         router.refresh();

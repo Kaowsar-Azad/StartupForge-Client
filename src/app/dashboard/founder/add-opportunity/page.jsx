@@ -55,10 +55,14 @@ export default function AddOpportunityPage() {
     fetchData();
   }, [user]);
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = async (plan = "monthly") => {
     setUpgrading(true);
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/payments/create-checkout-session`, {}, { withCredentials: true });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/payments/create-checkout-session`,
+        { plan },
+        { withCredentials: true }
+      );
       if (res.data?.url) window.location.href = res.data.url;
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to initiate payment");
@@ -110,11 +114,24 @@ export default function AddOpportunityPage() {
             <div className="text-6xl">👑</div>
             <h2 className="text-3xl font-bold">Upgrade to Premium</h2>
             <p className="text-slate-300 max-w-md mx-auto text-sm leading-relaxed">
-              You have used your 3 free opportunity listings. Upgrade to <span className="text-blue-400 font-semibold">Premium Lifetime Membership</span> for only <span className="font-bold text-white">$19.99</span>.
+              You have used your 3 free opportunity listings. Select a premium subscription package to post unlimited opportunities.
             </p>
-            <button onClick={handleUpgrade} disabled={upgrading} className="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-3.5 rounded-xl transition shadow-lg shadow-blue-600/25 disabled:bg-blue-400">
-              {upgrading ? "Redirecting..." : "Upgrade Now for $19.99"}
-            </button>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-md mx-auto pt-2">
+              <button
+                onClick={() => handleUpgrade("monthly")}
+                disabled={upgrading}
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3.5 rounded-xl transition shadow-lg shadow-blue-600/25 disabled:bg-blue-400 cursor-pointer"
+              >
+                {upgrading ? "Redirecting..." : "Monthly ($10/mo)"}
+              </button>
+              <button
+                onClick={() => handleUpgrade("yearly")}
+                disabled={upgrading}
+                className="w-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-750 text-white font-semibold px-6 py-3.5 rounded-xl transition shadow-lg shadow-yellow-600/25 disabled:bg-amber-400 cursor-pointer"
+              >
+                {upgrading ? "Redirecting..." : "Yearly ($100/yr)"}
+              </button>
+            </div>
           </div>
         ) : (
           <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm">
