@@ -8,14 +8,13 @@ import { Eye, EyeSlash } from "@gravity-ui/icons";
 
 import axios from "axios";
 
-// Production-এ relative URL (Next.js proxy), local dev-এ full URL
+
 const apiBase =
   typeof window !== "undefined" &&
   !(process.env.NEXT_PUBLIC_API_URL || "").includes("localhost")
     ? ""
     : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
-// useSearchParams must be inside Suspense — inner component
 function LoginContent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +46,7 @@ function LoginContent() {
       if (error) {
         toast.error(error.message || "Login failed. Please try again.");
       } else {
-        // Sync session to server JWT cookie synchronously before redirecting
+        
         try {
           await axios.post(
             `${apiBase}/api/auth/jwt`,
@@ -139,7 +138,7 @@ function LoginContent() {
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full rounded-xl bg-blue-605 py-3 font-semibold text-white transition hover:bg-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+              className="w-full rounded-xl bg-blue-605 py-3 font-semibold text-white transition bg-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed flex justify-center items-center gap-2"
             >
               {loading ? (
                 <>
