@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { authClient } from "@/lib/auth"; 
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -15,7 +15,8 @@ const apiBase =
     ? ""
     : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
-export default function LoginPage() {
+// useSearchParams must be inside Suspense — inner component
+function LoginContent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -193,5 +194,14 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Outer page — wraps LoginContent in Suspense (required for useSearchParams)
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center min-h-screen">Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 }
