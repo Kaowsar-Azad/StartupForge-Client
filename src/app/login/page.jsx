@@ -8,6 +8,13 @@ import { Eye, EyeSlash } from "@gravity-ui/icons";
 
 import axios from "axios";
 
+// Production-এ relative URL (Next.js proxy), local dev-এ full URL
+const apiBase =
+  typeof window !== "undefined" &&
+  !(process.env.NEXT_PUBLIC_API_URL || "").includes("localhost")
+    ? ""
+    : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +49,7 @@ export default function LoginPage() {
         // Sync session to server JWT cookie synchronously before redirecting
         try {
           await axios.post(
-            `/api/auth/jwt`,
+            `${apiBase}/api/auth/jwt`,
             {
               email: data.user.email,
               role: data.user.role || "collaborator",
