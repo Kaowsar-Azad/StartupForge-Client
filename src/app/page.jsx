@@ -1,8 +1,10 @@
-import Banner from "@/components/home/Banner";
-import FeaturedStartups from "@/components/home/FeaturedStartups";
-import FeaturedOpportunities from "@/components/home/FeaturedOpportunities";
-import SuccessStories from "@/components/home/SuccessStories";
-import WhyJoin from "@/components/home/WhyJoin";
+import dynamic from "next/dynamic";
+
+const Banner = dynamic(() => import("@/components/home/Banner"), { ssr: false });
+const FeaturedStartups = dynamic(() => import("@/components/home/FeaturedStartups"), { ssr: false });
+const FeaturedOpportunities = dynamic(() => import("@/components/home/FeaturedOpportunities"), { ssr: false });
+const SuccessStories = dynamic(() => import("@/components/home/SuccessStories"), { ssr: false });
+const WhyJoin = dynamic(() => import("@/components/home/WhyJoin"), { ssr: false });
 
 async function getFeaturedData() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
