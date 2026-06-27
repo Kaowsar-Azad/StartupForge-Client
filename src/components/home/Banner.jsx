@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Banner() {
   return (
-    <section className="relative overflow-hidden bg-slate-950 text-white">
+    <section className="relative overflow-hidden bg-background text-foreground transition-colors duration-300">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(59,130,246,0.18),_transparent_35%),radial-gradient(circle_at_bottom_left,_rgba(16,185,129,0.12),_transparent_30%)]" />
       <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -14,7 +14,7 @@ export default function Banner() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-blue-200 backdrop-blur"
+              className="inline-flex items-center rounded-full border border-divider bg-default-100 dark:bg-white/5 px-4 py-2 text-sm text-blue-600 dark:text-blue-200 backdrop-blur"
             >
               StartupForge — Startup Team Builder Platform
             </motion.div>
@@ -23,7 +23,7 @@ export default function Banner() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="max-w-2xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+              className="max-w-2xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
             >
               Build your startup team, faster.
             </motion.h1>
@@ -32,7 +32,7 @@ export default function Banner() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="max-w-xl text-base leading-7 text-slate-300 sm:text-lg"
+              className="max-w-xl text-base leading-7 text-default-600 sm:text-lg"
             >
               Connect founders with developers, designers, marketers, and other
               talented collaborators. Discover opportunities, apply to join teams,
@@ -53,7 +53,7 @@ export default function Banner() {
               </Link>
               <Link
                 href="/opportunities"
-                className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                className="inline-flex items-center justify-center rounded-xl border border-divider bg-default-100 dark:bg-white/5 px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-default-200 dark:hover:bg-white/10"
               >
                 Find Opportunities
               </Link>
@@ -65,17 +65,17 @@ export default function Banner() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className="grid grid-cols-1 gap-4 pt-4 sm:grid-cols-3"
             >
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-                <p className="text-2xl font-bold text-white">120+</p>
-                <p className="mt-1 text-sm text-slate-300">Startups</p>
+              <div className="rounded-2xl border border-divider bg-white dark:bg-white/5 p-4 backdrop-blur shadow-sm">
+                <p className="text-2xl font-bold text-foreground">120+</p>
+                <p className="mt-1 text-sm text-default-500">Startups</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-                <p className="text-2xl font-bold text-white">2.4k</p>
-                <p className="mt-1 text-sm text-slate-300">Collaborators</p>
+              <div className="rounded-2xl border border-divider bg-white dark:bg-white/5 p-4 backdrop-blur shadow-sm">
+                <p className="text-2xl font-bold text-foreground">2.4k</p>
+                <p className="mt-1 text-sm text-default-500">Collaborators</p>
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-                <p className="text-2xl font-bold text-white">850+</p>
-                <p className="mt-1 text-sm text-slate-300">Opportunities</p>
+              <div className="rounded-2xl border border-divider bg-white dark:bg-white/5 p-4 backdrop-blur shadow-sm">
+                <p className="text-2xl font-bold text-foreground">850+</p>
+                <p className="mt-1 text-sm text-default-500">Opportunities</p>
               </div>
             </motion.div>
           </div>
@@ -89,39 +89,39 @@ export default function Banner() {
             <div className="absolute -left-8 top-10 h-24 w-24 rounded-full bg-blue-500/20 blur-3xl" />
             <div className="absolute -right-8 bottom-10 h-24 w-24 rounded-full bg-emerald-500/20 blur-3xl" />
 
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur">
+            <div className="rounded-3xl border border-divider bg-white dark:bg-white/5 p-6 shadow-2xl backdrop-blur">
               <div className="space-y-5">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-sm text-slate-300">Founder Dashboard</p>
-                    <h3 className="text-xl font-semibold text-white">
+                    <p className="text-sm text-default-500">Founder Dashboard</p>
+                    <h3 className="text-xl font-semibold text-foreground">
                       StartupForge Overview
                     </h3>
                   </div>
-                  <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-sm text-emerald-300">
+                  <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-sm text-emerald-600 dark:text-emerald-300">
                     Live
                   </span>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-2xl bg-slate-900/80 p-4">
-                    <p className="text-sm text-slate-400">Open Opportunities</p>
-                    <p className="mt-2 text-3xl font-bold text-white">08</p>
+                  <div className="rounded-2xl bg-default-100 dark:bg-slate-900/80 p-4">
+                    <p className="text-sm text-default-500">Open Opportunities</p>
+                    <p className="mt-2 text-3xl font-bold text-foreground">08</p>
                   </div>
-                  <div className="rounded-2xl bg-slate-900/80 p-4">
-                    <p className="text-sm text-slate-400">Applications</p>
-                    <p className="mt-2 text-3xl font-bold text-white">42</p>
+                  <div className="rounded-2xl bg-default-100 dark:bg-slate-900/80 p-4">
+                    <p className="text-sm text-default-500">Applications</p>
+                    <p className="mt-2 text-3xl font-bold text-foreground">42</p>
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
-                  <p className="text-sm text-slate-300">Top Match Today</p>
+                <div className="rounded-2xl border border-divider bg-default-50 dark:bg-slate-900/70 p-4">
+                  <p className="text-sm text-default-500">Top Match Today</p>
                   <div className="mt-4 flex items-center justify-between gap-4">
                     <div>
-                      <p className="font-semibold text-white">Frontend Developer</p>
-                      <p className="text-sm text-slate-400">BuildFlow</p>
+                      <p className="font-semibold text-foreground">Frontend Developer</p>
+                      <p className="text-sm text-default-500">BuildFlow</p>
                     </div>
-                    <span className="rounded-full bg-blue-500/15 px-3 py-1 text-sm text-blue-300">
+                    <span className="rounded-full bg-blue-500/15 px-3 py-1 text-sm text-blue-600 dark:text-blue-300">
                       92% Match
                     </span>
                   </div>

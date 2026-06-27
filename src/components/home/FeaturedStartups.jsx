@@ -5,16 +5,15 @@ import { motion } from "framer-motion";
 
 export default function FeaturedStartups({ startups = [] }) {
   return (
-    // ব্যাকগ্রাউন্ড আপনার ওয়েবসাইটের ডার্ক থিমের সাথে মেলানো হয়েছে
-    <section className="bg-[#0a0a0a] py-20"> 
+    <section className="bg-background py-20 transition-colors duration-300"> 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="mb-12 flex flex-col items-center text-center">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
+          <h2 className="text-3xl font-bold text-foreground md:text-4xl">
             Featured Startups
           </h2>
-          <p className="mt-4 max-w-2xl text-slate-400">
+          <p className="mt-4 max-w-2xl text-default-500">
             Explore the latest startup ideas posted by founders.
           </p>
         </div>
@@ -31,11 +30,11 @@ export default function FeaturedStartups({ startups = [] }) {
               className="group"
             >
               {/* কার্ডের স্টাইল আপনার স্ক্রিনশটের মতো করে আপডেট করা হয়েছে */}
-              <div className="flex h-full flex-col rounded-3xl border border-white/5 bg-[#111111] p-6 shadow-xl transition-all duration-300 hover:border-blue-500/30">
+              <div className="flex h-full flex-col rounded-3xl border border-divider bg-white dark:bg-[#111111] p-6 shadow-xl transition-all duration-300 hover:border-blue-500/30">
                 
                 {/* Logo & Header */}
                 <div className="mb-5 flex items-center gap-4">
-                  <div className="h-16 w-16 overflow-hidden rounded-2xl bg-white/5">
+                  <div className="h-16 w-16 overflow-hidden rounded-2xl bg-default-100 dark:bg-white/5">
                     <img
                       src={startup.logo}
                       alt={startup.startup_name}
@@ -43,17 +42,17 @@ export default function FeaturedStartups({ startups = [] }) {
                     />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white">
+                    <h3 className="text-xl font-bold text-foreground">
                       {startup.startup_name}
                     </h3>
-                    <p className="text-sm text-slate-400">
+                    <p className="text-sm text-default-500">
                       Founder: {startup.founder_name || "Founder"}
                     </p>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="mb-5 line-clamp-3 text-sm leading-6 text-slate-300">
+                <p className="mb-5 line-clamp-3 text-sm leading-6 text-default-600">
                   {startup.description}
                 </p>
 
@@ -68,11 +67,11 @@ export default function FeaturedStartups({ startups = [] }) {
                 </div>
 
                 {/* Team Size Needed */}
-                <div className="mt-auto mb-6 rounded-2xl bg-[#1a1a1a] p-4 border border-white/5">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                <div className="mt-auto mb-6 rounded-2xl bg-default-100 dark:bg-[#1a1a1a] p-4 border border-divider">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-default-400">
                     TEAM SIZE NEEDED
                   </p>
-                  <h4 className="mt-1 text-lg font-bold text-white">
+                  <h4 className="mt-1 text-lg font-bold text-foreground">
                     {startup.team_size_needed || "3-5 Members"}
                   </h4>
                 </div>
@@ -91,7 +90,7 @@ export default function FeaturedStartups({ startups = [] }) {
 
         {/* Empty State */}
         {startups.length === 0 && (
-          <div className="mt-10 rounded-3xl border border-dashed border-white/10 p-12 text-center text-slate-400">
+          <div className="mt-10 rounded-3xl border border-dashed border-divider p-12 text-center text-default-500">
             No Featured Startups Found
           </div>
         )}
@@ -101,7 +100,7 @@ export default function FeaturedStartups({ startups = [] }) {
           <div className="mt-12 flex justify-center">
             <Link
               href="/startups"
-              className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/20 active:scale-[0.98]"
+              className="group flex items-center gap-2 rounded-full border border-divider bg-default-100 dark:bg-white/5 px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-default-200 dark:hover:bg-white/10 hover:border-divider active:scale-[0.98]"
             >
               View More Startups
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">

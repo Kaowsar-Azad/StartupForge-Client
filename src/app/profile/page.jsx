@@ -98,7 +98,7 @@ export default function ProfilePage() {
 
   return (
     <PrivateRoute>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 min-h-screen text-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 min-h-screen text-foreground">
         {/* Header Section */}
         <div>
           <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
@@ -110,20 +110,20 @@ export default function ProfilePage() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-8">
             
             {/* Image Upload Section */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pb-8 border-b border-slate-800">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pb-8 border-b border-slate-200 dark:border-slate-800">
               <div className="shrink-0 relative">
                 <img
                   src={imageUrl || "/default-avatar.png"}
                   alt={name}
-                  className="w-24 h-24 rounded-full object-cover border-4 border-slate-800 shadow-xl ring-2 ring-blue-500/30"
+                  className="w-24 h-24 rounded-full object-cover border-4 border-slate-200 dark:border-slate-800 shadow-xl ring-2 ring-blue-500/30"
                 />
               </div>
               <div className="w-full space-y-2">
-                <label className="block text-sm font-semibold text-slate-200">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200">
                   Profile Picture
                 </label>
                 <input
@@ -142,7 +142,7 @@ export default function ProfilePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Full Name */}
               <div>
-                <label className="block text-sm font-medium text-slate-350 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-2">
                   Full Name *
                 </label>
                 <input
@@ -151,27 +151,27 @@ export default function ProfilePage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your name"
-                  className="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-white text-sm outline-none transition duration-250 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-foreground text-sm outline-none transition duration-250 focus-within:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                 />
               </div>
 
               {/* Email (Disabled) */}
               <div>
-                <label className="block text-sm font-medium text-slate-350 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-2">
                   Email Address
                 </label>
                 <input
                   type="email"
                   disabled
                   value={user?.email || ""}
-                  className="w-full rounded-xl border border-slate-850 bg-slate-950/50 px-4 py-3 text-slate-500 text-sm outline-none cursor-not-allowed opacity-60"
+                  className="w-full rounded-xl border border-slate-200 dark:border-slate-850 bg-slate-100 dark:bg-slate-950/50 px-4 py-3 text-slate-500 text-sm outline-none cursor-not-allowed opacity-60"
                 />
               </div>
             </div>
 
             {/* Skills */}
             <div>
-              <label className="block text-sm font-medium text-slate-350 mb-2">
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-2">
                 Skills <span className="text-slate-500 font-normal">(Comma separated, e.g. React, Node.js, Design)</span>
               </label>
               <input
@@ -179,13 +179,13 @@ export default function ProfilePage() {
                 value={skills}
                 onChange={(e) => setSkills(e.target.value)}
                 placeholder="e.g. Next.js, Figma, Marketing"
-                className="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-white text-sm outline-none transition duration-250 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-foreground text-sm outline-none transition duration-250 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
               />
             </div>
 
             {/* Bio */}
             <div>
-              <label className="block text-sm font-medium text-slate-350 mb-2">
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-350 mb-2">
                 Short Bio
               </label>
               <textarea
@@ -193,7 +193,7 @@ export default function ProfilePage() {
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 placeholder="Tell us about yourself, your background, or your startup interests..."
-                className="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-white text-sm outline-none transition duration-250 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 resize-y"
+                className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-foreground text-sm outline-none transition duration-250 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 resize-y"
               />
             </div>
 

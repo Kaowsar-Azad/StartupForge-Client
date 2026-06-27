@@ -1,10 +1,7 @@
 import HomeClient from "@/components/home/HomeClient";
 
 async function getFeaturedData() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  if (!apiUrl || apiUrl.includes("localhost")) {
-    return { startups: [], opportunities: [] };
-  }
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
   try {
     const [startupsRes, opportunitiesRes] = await Promise.all([
       fetch(`${apiUrl}/api/startups/featured`, { cache: "no-store" }),
@@ -20,6 +17,10 @@ async function getFeaturedData() {
 
 export default async function HomePage() {
   const { startups, opportunities } = await getFeaturedData();
-  return <HomeClient startups={startups} opportunities={opportunities} />;
+  return (
+    <div className="bg-background text-foreground min-h-screen">
+      <HomeClient startups={startups} opportunities={opportunities} />
+    </div>
+  );
 }
 

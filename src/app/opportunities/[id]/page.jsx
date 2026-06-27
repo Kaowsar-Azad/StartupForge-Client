@@ -67,7 +67,7 @@ export default function OpportunityDetailsPage() {
   if (loading) return <LoadingSpinner />;
   if (!opportunity) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center text-white p-4">
+      <div className="min-h-screen bg-background flex flex-col justify-center items-center text-foreground p-4">
         <h1 className="text-2xl font-bold">Opportunity not found</h1>
         <Link href="/opportunities" className="text-blue-500 mt-4 underline">Back to Browse</Link>
       </div>
@@ -77,29 +77,29 @@ export default function OpportunityDetailsPage() {
   const isCollaborator = user?.role === "collaborator";
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto space-y-8 bg-slate-900 border border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl">
-        <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6 pb-6 border-b border-white/5">
+    <div className="min-h-screen bg-background text-foreground py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto space-y-8 bg-white dark:bg-slate-900 border border-divider rounded-3xl p-6 sm:p-10 shadow-2xl">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6 pb-6 border-b border-divider">
           <div className="flex flex-col sm:flex-row items-center gap-5">
             <img
               src={opportunity.startup_id?.logo || "/default-startup.png"}
               alt={opportunity.startup_id?.startup_name}
-              className="w-20 h-20 rounded-2xl object-cover border border-white/10"
+              className="w-20 h-20 rounded-2xl object-cover border border-divider"
             />
             <div className="text-center sm:text-left space-y-1">
               <h1 className="text-2xl sm:text-3xl font-extrabold">{opportunity.role_title}</h1>
-              <p className="text-slate-400 font-medium">
-                at <span className="text-blue-400">{opportunity.startup_id?.startup_name}</span>
+              <p className="text-default-500 font-medium">
+                at <span className="text-blue-500">{opportunity.startup_id?.startup_name}</span>
               </p>
-              <span className="inline-block bg-blue-500/10 text-blue-300 text-xs px-2.5 py-1 rounded-full font-medium mt-1">
+              <span className="inline-block bg-blue-500/10 text-blue-550 dark:text-blue-300 text-xs px-2.5 py-1 rounded-full font-medium mt-1">
                 {opportunity.startup_id?.industry}
               </span>
             </div>
           </div>
 
           <div className="text-center sm:text-right space-y-1">
-            <p className="text-xs text-slate-400">Application Deadline</p>
-            <p className="font-semibold text-red-400">
+            <p className="text-xs text-default-500">Application Deadline</p>
+            <p className="font-semibold text-red-500">
               {new Date(opportunity.deadline).toLocaleDateString()}
             </p>
           </div>
@@ -107,32 +107,32 @@ export default function OpportunityDetailsPage() {
 
         <div className="space-y-6">
           <div>
-            <h2 className="text-lg font-bold text-white mb-2">About Startup</h2>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <h2 className="text-lg font-bold text-foreground mb-2">About Startup</h2>
+            <p className="text-default-600 text-sm leading-relaxed">
               {opportunity.startup_id?.description || "No description provided."}
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 bg-slate-950/40 p-5 rounded-2xl text-sm border border-white/5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 bg-default-100 dark:bg-slate-950/40 p-5 rounded-2xl text-sm border border-divider">
             <div>
-              <span className="text-xs text-slate-500 block">Work Type</span>
-              <span className="font-semibold text-slate-205">{opportunity.work_type}</span>
+              <span className="text-xs text-default-500 block">Work Type</span>
+              <span className="font-semibold text-default-800">{opportunity.work_type}</span>
             </div>
             <div>
-              <span className="text-xs text-slate-500 block">Commitment</span>
-              <span className="font-semibold text-slate-205">{opportunity.commitment_level}</span>
+              <span className="text-xs text-default-500 block">Commitment</span>
+              <span className="font-semibold text-default-800">{opportunity.commitment_level}</span>
             </div>
             <div>
-              <span className="text-xs text-slate-500 block">Funding Stage</span>
-              <span className="font-semibold text-slate-205">{opportunity.startup_id?.funding_stage}</span>
+              <span className="text-xs text-default-500 block">Funding Stage</span>
+              <span className="font-semibold text-default-800">{opportunity.startup_id?.funding_stage}</span>
             </div>
           </div>
 
           <div>
-            <h2 className="text-lg font-bold text-white mb-2">Required Skills</h2>
+            <h2 className="text-lg font-bold text-foreground mb-2">Required Skills</h2>
             <div className="flex flex-wrap gap-2">
               {(Array.isArray(opportunity.required_skills) ? opportunity.required_skills : (opportunity.required_skills || "").split(",")).map((skill, idx) => (
-                <span key={idx} className="bg-slate-800 text-slate-200 text-sm px-3.5 py-1.5 rounded-xl font-medium">
+                <span key={idx} className="bg-default-100 text-default-600 dark:bg-slate-800 dark:text-slate-200 text-sm px-3.5 py-1.5 rounded-xl font-medium">
                   {skill.trim()}
                 </span>
               ))}
@@ -140,8 +140,8 @@ export default function OpportunityDetailsPage() {
           </div>
         </div>
 
-        <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <Link href="/opportunities" className="text-slate-400 hover:text-white transition text-sm">
+        <div className="pt-6 border-t border-divider flex flex-col sm:flex-row justify-between items-center gap-4">
+          <Link href="/opportunities" className="text-default-500 hover:text-foreground transition text-sm">
             ← Back to opportunities
           </Link>
 
@@ -160,7 +160,7 @@ export default function OpportunityDetailsPage() {
               Apply for this role
             </button>
           ) : (
-            <span className="text-xs text-slate-400 bg-slate-950/60 px-4 py-2 rounded-xl">
+            <span className="text-xs text-default-500 bg-default-100 dark:bg-slate-950/60 px-4 py-2 rounded-xl">
               Only Collaborators can apply.
             </span>
           )}
@@ -170,31 +170,31 @@ export default function OpportunityDetailsPage() {
       {/* Apply Form Modal */}
       {showApplyModal && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-white/10 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl text-white">
-            <h2 className="text-xl font-bold text-white mb-2">Submit Application</h2>
-            <p className="text-xs text-slate-400 mb-6">Apply for {opportunity.role_title} at {opportunity.startup_id?.startup_name}</p>
+          <div className="bg-white dark:bg-slate-900 border border-divider rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl text-foreground">
+            <h2 className="text-xl font-bold text-foreground mb-2">Submit Application</h2>
+            <p className="text-xs text-default-500 mb-6">Apply for {opportunity.role_title} at {opportunity.startup_id?.startup_name}</p>
             
             <form onSubmit={handleApplySubmit} className="space-y-5">
               <div>
-                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Portfolio Link (Optional)</label>
+                <label className="block text-xs font-semibold text-default-500 uppercase tracking-wider mb-2">Portfolio Link (Optional)</label>
                 <input
                   type="url"
                   value={portfolioLink}
                   onChange={(e) => setPortfolioLink(e.target.value)}
                   placeholder="https://github.com/yourusername or behance.net/..."
-                  className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white placeholder-slate-650 text-sm outline-none focus:border-blue-500"
+                  className="w-full rounded-xl border border-divider bg-default-50 dark:bg-slate-950 px-4 py-3 text-foreground placeholder-default-400 text-sm outline-none focus:border-blue-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Motivation Letter *</label>
+                <label className="block text-xs font-semibold text-default-500 uppercase tracking-wider mb-2">Motivation Letter *</label>
                 <textarea
                   required
                   rows={5}
                   value={motivation}
                   onChange={(e) => setMotivation(e.target.value)}
                   placeholder="Why are you a good fit for this role? What value can you bring to the startup?"
-                  className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white placeholder-slate-650 text-sm outline-none focus:border-blue-500 resize-none"
+                  className="w-full rounded-xl border border-divider bg-default-50 dark:bg-slate-950 px-4 py-3 text-foreground placeholder-default-400 text-sm outline-none focus:border-blue-500 resize-none"
                 />
               </div>
 
@@ -209,7 +209,7 @@ export default function OpportunityDetailsPage() {
                 <button
                   type="button"
                   onClick={() => setShowApplyModal(false)}
-                  className="border border-white/10 text-slate-300 hover:bg-white/5 font-medium px-6 py-3 rounded-xl transition text-sm cursor-pointer"
+                  className="border border-divider text-foreground hover:bg-default-100 font-medium px-6 py-3 rounded-xl transition text-sm cursor-pointer"
                 >
                   Cancel
                 </button>

@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
         try {
           // Retrieve the signed JWT token from the Better Auth server endpoint
           const tokenRes = await axios.get(
-            `${apiBase}/api/auth/better-auth/get-token`,
+            `${apiBase}/api/auth/token`,
             { withCredentials: true }
           );
           const jwtToken = tokenRes.data?.token;

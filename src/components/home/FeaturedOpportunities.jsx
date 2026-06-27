@@ -5,15 +5,15 @@ import { motion } from "framer-motion";
 
 export default function FeaturedOpportunities({ opportunities = [] }) {
   return (
-    <section className="bg-[#0a0a0a] py-20">
+    <section className="bg-background py-20 transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="mb-12 flex flex-col items-center text-center">
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
+          <h2 className="text-3xl font-bold text-foreground md:text-4xl">
             Featured Opportunities
           </h2>
-          <p className="mt-4 max-w-2xl text-slate-400">
+          <p className="mt-4 max-w-2xl text-default-500">
             Find the perfect role in an exciting startup and join the journey.
           </p>
         </div>
@@ -40,16 +40,16 @@ export default function FeaturedOpportunities({ opportunities = [] }) {
                 viewport={{ once: true }}
                 className="group"
               >
-                <div className="flex h-full flex-col justify-between rounded-3xl border border-white/5 bg-[#111111] p-6 shadow-xl transition-all duration-300 hover:border-blue-500/30">
+                <div className="flex h-full flex-col justify-between rounded-3xl border border-divider bg-white dark:bg-[#111111] p-6 shadow-xl transition-all duration-300 hover:border-blue-500/30">
                   <div className="space-y-5">
                     
                     {/* Header */}
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <h3 className="text-xl font-bold text-white sm:text-2xl">
+                        <h3 className="text-xl font-bold text-foreground sm:text-2xl">
                           {role_title}
                         </h3>
-                        <p className="mt-1 text-sm text-slate-400">{startup_name}</p>
+                        <p className="mt-1 text-sm text-default-500">{startup_name}</p>
                       </div>
                       <span className="shrink-0 rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] font-medium text-emerald-400">
                         Open
@@ -67,15 +67,15 @@ export default function FeaturedOpportunities({ opportunities = [] }) {
                     </div>
 
                     {/* Required Skills */}
-                    <div className="rounded-2xl bg-[#1a1a1a] p-4 border border-white/5">
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">
+                    <div className="rounded-2xl bg-default-100 dark:bg-[#1a1a1a] p-4 border border-divider">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-default-455 mb-3">
                         REQUIRED SKILLS
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {required_skills.slice(0, 4).map((skill, idx) => (
                           <span
                             key={idx}
-                            className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300"
+                            className="rounded-full border border-divider bg-default-200 dark:bg-white/5 px-3 py-1 text-xs text-default-600 dark:text-slate-300"
                           >
                             {skill}
                           </span>
@@ -84,16 +84,16 @@ export default function FeaturedOpportunities({ opportunities = [] }) {
                     </div>
 
                     {/* Deadline */}
-                    <div className="flex items-center justify-between gap-3 text-sm text-slate-400">
+                    <div className="flex items-center justify-between gap-3 text-sm text-default-500">
                       <span className="font-medium">Deadline</span>
-                      <span className="text-slate-300">
+                      <span className="text-default-700">
                         {deadline || "Not set"}
                       </span>
                     </div>
                   </div>
 
                   {/* Actions */}
-                  <div className="mt-6 flex items-center justify-between gap-3 pt-4 border-t border-white/5">
+                  <div className="mt-6 flex items-center justify-between gap-3 pt-4 border-t border-divider">
                     <Link
                       href={`/opportunities/${_id}`}
                       className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-500 active:scale-[0.98]"
@@ -102,7 +102,7 @@ export default function FeaturedOpportunities({ opportunities = [] }) {
                     </Link>
                     <Link
                       href={`/opportunities/${_id}`}
-                      className="flex shrink-0 items-center justify-center px-4 py-3 text-sm font-medium text-blue-400 transition hover:text-blue-300"
+                      className="flex shrink-0 items-center justify-center px-4 py-3 text-sm font-medium text-blue-500 transition hover:text-blue-400"
                     >
                       Apply →
                     </Link>
@@ -115,7 +115,7 @@ export default function FeaturedOpportunities({ opportunities = [] }) {
 
         {/* Empty State */}
         {opportunities.length === 0 && (
-          <div className="mt-10 rounded-3xl border border-dashed border-white/10 p-12 text-center text-slate-400">
+          <div className="mt-10 rounded-3xl border border-dashed border-divider p-12 text-center text-default-500">
             No Featured Opportunities Found
           </div>
         )}
@@ -125,7 +125,7 @@ export default function FeaturedOpportunities({ opportunities = [] }) {
           <div className="mt-12 flex justify-center">
             <Link
               href="/opportunities"
-              className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/20 active:scale-[0.98]"
+              className="group flex items-center gap-2 rounded-full border border-divider bg-default-100 dark:bg-white/5 px-6 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:bg-default-200 dark:hover:bg-white/10 hover:border-divider active:scale-[0.98]"
             >
               View More Opportunities
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">

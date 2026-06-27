@@ -31,7 +31,7 @@ const features = [
 
 export default function WhyJoin() {
   return (
-    <section className="bg-slate-950 py-20 text-white">
+    <section className="bg-background py-20 text-foreground transition-colors duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -40,11 +40,11 @@ export default function WhyJoin() {
             Why Join StartupForge
           </p>
 
-          <h2 className="mt-3 text-3xl font-bold md:text-5xl">
+          <h2 className="mt-3 text-3xl font-bold md:text-5xl text-foreground">
             Everything You Need To Build & Join Startups
           </h2>
 
-          <p className="mt-5 text-slate-400">
+          <p className="mt-5 text-default-500">
             StartupForge connects founders and collaborators through a modern
             platform designed for startup growth, recruitment, and networking.
           </p>
@@ -63,17 +63,17 @@ export default function WhyJoin() {
                 delay: index * 0.08,
               }}
               viewport={{ once: true }}
-              className="group rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/40 hover:bg-white/10"
+              className="group rounded-3xl border border-divider bg-white dark:bg-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:border-blue-500/40 hover:bg-default-100 dark:hover:bg-white/10"
             >
               <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/15 text-3xl">
                 {feature.icon}
               </div>
 
-              <h3 className="text-xl font-semibold text-white">
+              <h3 className="text-xl font-semibold text-foreground">
                 {feature.title}
               </h3>
 
-              <p className="mt-4 text-sm leading-7 text-slate-300">
+              <p className="mt-4 text-sm leading-7 text-default-600">
                 {feature.description}
               </p>
 
@@ -88,13 +88,13 @@ export default function WhyJoin() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="mt-16 rounded-3xl border border-white/10 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 p-8 text-center backdrop-blur-md"
+          className="mt-16 rounded-3xl border border-divider bg-gradient-to-r from-blue-600/5 to-indigo-600/5 dark:from-blue-600/20 dark:to-indigo-600/20 p-8 text-center backdrop-blur-md"
         >
-          <h3 className="text-2xl font-bold md:text-3xl">
+          <h3 className="text-2xl font-bold md:text-3xl text-foreground">
             Ready to build something amazing?
           </h3>
 
-          <p className="mx-auto mt-4 max-w-2xl text-slate-300">
+          <p className="mx-auto mt-4 max-w-2xl text-default-600">
             Whether you're a founder searching for talent or a collaborator
             looking for opportunities, StartupForge is the perfect place to
             start your journey.
@@ -105,7 +105,7 @@ export default function WhyJoin() {
               Browse Startups
             </button>
 
-            <button className="rounded-xl border border-white/15 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10">
+            <button className="rounded-xl border border-divider bg-default-100 dark:bg-white/5 px-6 py-3 font-semibold text-foreground transition hover:bg-default-200 dark:hover:bg-white/10">
               Explore Opportunities
             </button>
           </div>
