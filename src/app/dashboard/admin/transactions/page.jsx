@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import PrivateRoute from "@/components/shared/PrivateRoute";
 import axios from "axios";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
-import { Briefcase } from "@gravity-ui/icons"; // Banknote-এর পরিবর্তে Briefcase ব্যবহার করা হলো
+import { Briefcase } from "@gravity-ui/icons"; 
 
 export default function AdminTransactionsPage() {
   const [payments, setPayments] = useState([]);

@@ -21,27 +21,41 @@ export const AuthProvider = ({ children }) => {
   const [dbUser, setDbUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [authError, setAuthError] = useState(false);
+  const [token, setToken] = useState(null);
+
+  // Set up Axios request interceptor for Bearer token
+  useEffect(() => {
+    const interceptor = axios.interceptors.request.use((config) => {
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+    return () => {
+      axios.interceptors.request.eject(interceptor);
+    };
+  }, [token]);
 
   useEffect(() => {
     const fetchDbUser = async () => {
       if (session?.user?.email) {
         try {
-          // Sync session to server JWT cookie
-          await axios.post(
-            `${apiBase}/api/auth/jwt`,
-            {
-              email: session.user.email,
-              role: session.user.role || "collaborator",
-              name: session.user.name || "Unknown User",
-              image: session.user.image || "",
-            },
+          // Retrieve the signed JWT token from the Better Auth server endpoint
+          const tokenRes = await axios.get(
+            `${apiBase}/api/auth/better-auth/get-token`,
             { withCredentials: true }
           );
+          const jwtToken = tokenRes.data?.token;
+          setToken(jwtToken);
 
-          // Now retrieve the user from the database
+          // Now retrieve the user from the database using Bearer token
           const res = await axios.get(
             `${apiBase}/api/users/${session.user.email}`,
-            { withCredentials: true }
+            {
+              headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+            }
           );
           setDbUser(res.data);
           setAuthError(false);
@@ -71,7 +85,12 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     };
     if (!isPending) {
-      fetchDbUser();
+      if (!session) {
+        setToken(null);
+        setDbUser(null);
+      } else {
+        fetchDbUser();
+      }
     }
   }, [session, isPending, router]);
 

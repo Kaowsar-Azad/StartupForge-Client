@@ -46,23 +46,7 @@ function LoginContent() {
       if (error) {
         toast.error(error.message || "Login failed. Please try again.");
       } else {
-        
-        try {
-          await axios.post(
-            `${apiBase}/api/auth/jwt`,
-            {
-              email: data.user.email,
-              role: data.user.role || "collaborator",
-              name: data.user.name || "Unknown User",
-              image: data.user.image || "",
-            },
-            { withCredentials: true }
-          );
-        } catch (syncErr) {
-          console.error("JWT Sync error on login:", syncErr);
-        }
-
-        toast.success("Login successful! 🎉");
+        toast.success("Login successful 🎉");
         router.push(callbackUrl);
         router.refresh();
       }
@@ -196,7 +180,7 @@ function LoginContent() {
   );
 }
 
-// Outer page — wraps LoginContent in Suspense (required for useSearchParams)
+
 export default function LoginPage() {
   return (
     <Suspense fallback={<div className="flex justify-center items-center min-h-screen">Loading...</div>}>
