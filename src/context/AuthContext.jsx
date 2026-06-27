@@ -88,6 +88,7 @@ export const AuthProvider = ({ children }) => {
       if (!session) {
         setToken(null);
         setDbUser(null);
+        setLoading(false); // FIXED: Add setLoading(false) so it doesn't spin forever
       } else {
         fetchDbUser();
       }
