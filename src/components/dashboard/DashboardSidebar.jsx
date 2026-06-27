@@ -76,17 +76,17 @@ export default function DashboardSidebar() {
   };
 
   return (
-    <aside className="w-full md:w-64 bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 flex flex-col min-h-screen transition-colors duration-300">
+    <aside className="w-full md:w-64 bg-gradient-to-b from-indigo-950 to-blue-950 dark:from-slate-900 dark:to-indigo-950 border-r border-indigo-800/50 dark:border-indigo-900/80 text-slate-200 flex flex-col min-h-screen transition-colors duration-300">
       {/* User Info Header */}
-      <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col items-center gap-3">
+      <div className="p-6 border-b border-indigo-800/50 dark:border-indigo-900/80 flex flex-col items-center gap-3">
         <img
           src={user?.image || "/default-avatar.png"}
           alt={user?.name}
-          className="w-20 h-20 rounded-full border-2 border-blue-500 object-cover shadow-lg"
+          className="w-20 h-20 rounded-full border-2 border-indigo-400 dark:border-indigo-600 object-cover shadow-lg"
         />
         <div className="text-center">
-          <p className="text-slate-900 dark:text-white font-semibold text-lg">{user?.name}</p>
-          <p className="text-slate-600 dark:text-slate-400 text-xs mt-0.5 capitalize bg-slate-100 dark:bg-slate-800 px-2.5 py-0.5 rounded-full inline-block">
+          <p className="text-white font-semibold text-lg">{user?.name}</p>
+          <p className="text-indigo-300 dark:text-indigo-400 text-xs mt-0.5 capitalize bg-indigo-900/60 dark:bg-indigo-950/80 px-2.5 py-0.5 rounded-full inline-block">
             {user?.role}
           </p>
         </div>
@@ -103,8 +103,8 @@ export default function DashboardSidebar() {
               href={link.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                 isActive
-                  ? "bg-blue-600 text-white shadow-md shadow-blue-600/10"
-                  : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:text-slate-950 dark:hover:text-white"
+                  ? "bg-indigo-500 dark:bg-indigo-700 text-white shadow-md shadow-indigo-500/30"
+                  : "text-indigo-200 dark:text-indigo-300 hover:bg-indigo-800/50 dark:hover:bg-indigo-900/60 hover:text-white"
               }`}
             >
               <Icon className="text-lg w-5 h-5 shrink-0" />
@@ -115,10 +115,10 @@ export default function DashboardSidebar() {
       </nav>
 
       {/* Logout button at bottom */}
-      <div className="p-4 border-t border-slate-200 dark:border-slate-800">
+      <div className="p-4 border-t border-indigo-800/50 dark:border-indigo-900/80">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-500/10 hover:bg-red-500 hover:text-white text-red-500 dark:text-red-400 rounded-xl text-sm font-medium transition cursor-pointer"
+          className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-500/10 hover:bg-red-500 hover:text-white text-red-400 rounded-xl text-sm font-medium transition cursor-pointer"
         >
           <ArrowRightFromSquare className="w-4 h-4 shrink-0" /> Logout
         </button>

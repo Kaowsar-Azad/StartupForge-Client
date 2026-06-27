@@ -75,11 +75,11 @@ export const AuthProvider = ({ children }) => {
             try {
               await authClient.signOut();
             } catch (signOutError) {
-              console.error("Failed to sign out blocked user:", signOutError);
+              console.warn("Failed to sign out blocked user:", signOutError);
             }
             router.push("/login");
           }
-          console.error("Failed to fetch user from DB:", error);
+          console.warn("Failed to fetch user from DB:", error);
         }
       }
       setLoading(false);
