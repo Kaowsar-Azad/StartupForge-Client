@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 import Link from "next/link";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
-import { CrownDiamond } from "@gravity-ui/icons";
+import { CrownDiamond, Briefcase, FileText, CircleCheck } from "@gravity-ui/icons";
 import {
   BarChart,
   Bar,
@@ -198,9 +198,9 @@ export default function FounderOverviewPage() {
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <StatsCard title="Total Opportunities" value={totalOpps} icon="💼" color="#3b82f6" />
-              <StatsCard title="Total Applications" value={totalApps} icon="📋" color="#10b981" />
-              <StatsCard title="Accepted Members" value={acceptedMembers} icon="✅" color="#f59e0b" />
+              <StatsCard title="Total Opportunities" value={totalOpps} icon={<Briefcase width={22} height={22} />} color="#3b82f6" />
+              <StatsCard title="Total Applications" value={totalApps} icon={<FileText width={22} height={22} />} color="#10b981" />
+              <StatsCard title="Accepted Members" value={acceptedMembers} icon={<CircleCheck width={22} height={22} />} color="#f59e0b" />
             </div>
 
             {/* Recharts Analytics Section */}
