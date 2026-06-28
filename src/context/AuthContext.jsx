@@ -7,12 +7,11 @@ import axios from "axios";
 
 const AuthContext = createContext(null);
 
-// Resolve API base URL: use relative path in production browser (via Next.js proxy),
-// full URL in local dev or server-side
+
 const apiBase =
   typeof window !== "undefined" &&
   !(process.env.NEXT_PUBLIC_API_URL || "").includes("localhost")
-    ? "" // relative in production browser
+    ? ""
     : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export const AuthProvider = ({ children }) => {
@@ -23,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [authError, setAuthError] = useState(false);
   const [token, setToken] = useState(null);
 
-  // Set up Axios request interceptor for Bearer token
+
   useEffect(() => {
     const interceptor = axios.interceptors.request.use((config) => {
       if (token) {
@@ -40,7 +39,7 @@ export const AuthProvider = ({ children }) => {
     const fetchDbUser = async () => {
       if (session?.user?.email) {
         try {
-          // Retrieve the signed JWT token from the Better Auth server endpoint
+
           const tokenRes = await axios.get(
             `${apiBase}/api/auth/token`,
             { withCredentials: true }
@@ -48,7 +47,7 @@ export const AuthProvider = ({ children }) => {
           const jwtToken = tokenRes.data?.token;
           setToken(jwtToken);
 
-          // Now retrieve the user from the database using Bearer token
+
           const res = await axios.get(
             `${apiBase}/api/users/${session.user.email}`,
             {
@@ -88,7 +87,7 @@ export const AuthProvider = ({ children }) => {
       if (!session) {
         setToken(null);
         setDbUser(null);
-        setLoading(false); // FIXED: Add setLoading(false) so it doesn't spin forever
+        setLoading(false);
       } else {
         fetchDbUser();
       }

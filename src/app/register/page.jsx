@@ -47,7 +47,7 @@ export default function RegisterPage() {
       let imageUrl = "";
 
       if (imageFile) {
-        toast.info("Uploading image...");
+
         const formData = new FormData();
         formData.append("image", imageFile);
         

@@ -8,6 +8,7 @@ import { authClient } from "@/lib/auth";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ThemeSwitcher from "./ThemeSwitcher";
+import { ArrowRightFromSquare } from "@gravity-ui/icons";
 
 const apiBase =
   typeof window !== "undefined" &&
@@ -35,7 +36,7 @@ export default function Navbar() {
         { withCredentials: true }
       );
       await authClient.signOut();
-      toast.success("Logged out successfully 🎉");
+      toast.error("Logged out successfully");
       router.push("/");
       router.refresh();
     } catch (error) {
@@ -47,12 +48,12 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 dark:border-white/10 bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur transition-colors duration-300">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        {/* Logo */}
+
         <Link href="/" className="text-2xl font-bold text-slate-900 dark:text-white tracking-wide">
           Startup<span className="text-blue-500">Forge</span>
         </Link>
 
-        {/* Desktop Menu */}
+
         <nav className="hidden items-center gap-8 md:flex">
           <Link href="/" className={`text-sm font-medium transition ${pathname === "/" ? "text-blue-600 dark:text-blue-400" : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"}`}>
             Home
@@ -75,7 +76,7 @@ export default function Navbar() {
           )}
         </nav>
 
-        {/* Desktop Buttons */}
+
         <div className="hidden items-center gap-4 md:flex">
           <ThemeSwitcher />
           {loading ? (
@@ -92,9 +93,9 @@ export default function Navbar() {
               </div>
               <button
                 onClick={handleLogout}
-                className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-2 text-sm text-danger hover:bg-danger hover:text-white transition cursor-pointer"
+                className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-2 text-sm text-danger hover:bg-danger hover:text-white transition flex items-center gap-2 cursor-pointer"
               >
-                Logout
+                <ArrowRightFromSquare className="w-4 h-4 shrink-0" /> Logout
               </button>
             </div>
           ) : (
@@ -115,7 +116,7 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Button */}
+
         <div className="flex items-center gap-4 md:hidden">
           <ThemeSwitcher />
           <button
@@ -127,7 +128,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+
       {isOpen && (
         <div className="border-t border-slate-200 dark:border-white/10 bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur md:hidden">
           <div className="flex flex-col px-4 py-4 gap-2">
@@ -167,9 +168,9 @@ export default function Navbar() {
                       setIsOpen(false);
                       handleLogout();
                     }}
-                    className="w-full text-center rounded-xl bg-danger py-2 text-sm font-medium text-white hover:bg-danger-600 transition cursor-pointer"
+                    className="w-full text-center flex items-center justify-center gap-2 rounded-xl bg-danger py-2 text-sm font-medium text-white hover:bg-danger-600 transition cursor-pointer"
                   >
-                    Logout
+                    <ArrowRightFromSquare className="w-4 h-4 shrink-0" /> Logout
                   </button>
                 </div>
               ) : (

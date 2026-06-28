@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# StartupForge - Client
 
-## Getting Started
+StartupForge is a platform that connects startup founders with professionals (developers, designers, marketers) to build teams. This repository contains the frontend client application built with Next.js.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+The frontend is built using Next.js and Tailwind CSS. It provides interfaces for different user roles including Founders, Collaborators, and Admins. It interacts with the backend REST API to fetch data and handle authentication state.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Role-based dashboards (Admin, Founder, Collaborator)
+- Credential and Google OAuth authentication using Better Auth
+- Stripe checkout integration for premium founder features
+- Responsive layout using Tailwind CSS
+- Client-side routing and protected routes
+- Image uploading to ImgBB
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Technologies Used
 
-## Learn More
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- Better Auth
+- Axios
+- Framer Motion
+- React Toastify
+- Stripe Checkout
+- Gravity UI Icons
 
-To learn more about Next.js, take a look at the following resources:
+## Prerequisites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Node.js installed
+- Access to the StartupForge Server API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Setup Instructions
 
-## Deploy on Vercel
+1. Clone the repository and navigate into the directory:
+   ```bash
+   cd StartupForge-Client
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Create a `.env.local` file in the root directory and add your environment variables:
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:5000
+   NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+The application will start running on `http://localhost:3000`.

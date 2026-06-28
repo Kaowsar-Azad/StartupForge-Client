@@ -67,7 +67,7 @@ export default function DashboardSidebar() {
         { withCredentials: true }
       );
       await authClient.signOut();
-      toast.success("Logged out successfully 🎉");
+      toast.error("Logged out successfully");
       router.push("/");
       router.refresh();
     } catch (error) {
@@ -77,7 +77,7 @@ export default function DashboardSidebar() {
 
   return (
     <aside className="w-full md:w-64 bg-gradient-to-b from-indigo-950 to-blue-950 dark:from-slate-900 dark:to-indigo-950 border-r border-indigo-800/50 dark:border-indigo-900/80 text-slate-200 flex flex-col min-h-screen transition-colors duration-300">
-      {/* User Info Header */}
+
       <div className="p-6 border-b border-indigo-800/50 dark:border-indigo-900/80 flex flex-col items-center gap-3">
         <img
           src={user?.image || "/default-avatar.png"}
@@ -92,7 +92,7 @@ export default function DashboardSidebar() {
         </div>
       </div>
 
-      {/* Navigation Links */}
+
       <nav className="flex-1 px-4 py-6 space-y-1">
         {links.map((link) => {
           const isActive = pathname === link.href;
@@ -114,7 +114,7 @@ export default function DashboardSidebar() {
         })}
       </nav>
 
-      {/* Logout button at bottom */}
+
       <div className="p-4 border-t border-indigo-800/50 dark:border-indigo-900/80">
         <button
           onClick={handleLogout}

@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { Sun, Moon } from "@gravity-ui/icons";
 
 export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
@@ -26,9 +27,9 @@ export default function ThemeSwitcher() {
       type="button"
     >
       {isDark ? (
-        <span className="text-lg">🌙</span>
+        <Moon className="w-5 h-5 text-indigo-400" />
       ) : (
-        <span className="text-lg">☀️</span>
+        <Sun className="w-5 h-5 text-amber-500" />
       )}
     </button>
   );
