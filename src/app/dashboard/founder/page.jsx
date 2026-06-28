@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 import Link from "next/link";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
+import { CrownDiamond } from "@gravity-ui/icons";
 import {
   BarChart,
   Bar,
@@ -141,7 +142,7 @@ export default function FounderOverviewPage() {
             <div className="flex items-center gap-2">
               {isPremium ? (
                 <span className="bg-gradient-to-r from-amber-500 to-yellow-600 text-white text-xs px-3.5 py-1.5 rounded-full font-semibold shadow-md flex items-center gap-1.5 animate-pulse">
-                  👑 Premium Founder
+                  <CrownDiamond width={16} /> Premium Founder
                 </span>
               ) : (
                 <span className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs px-3.5 py-1.5 rounded-full font-medium">
@@ -172,7 +173,7 @@ export default function FounderOverviewPage() {
             {!isPremium && (
               <div className="bg-gradient-to-r from-blue-900/40 to-slate-900 border border-blue-500/20 p-6 rounded-2xl flex flex-col lg:flex-row justify-between items-center gap-4 text-white">
                 <div>
-                  <h3 className="text-lg font-bold">Get Unlimited Opportunity Postings! 👑</h3>
+                  <h3 className="text-lg font-bold flex items-center gap-2">Get Unlimited Opportunity Postings! <CrownDiamond className="text-amber-400" width={20} /></h3>
                   <p className="text-xs text-slate-300 mt-1 max-w-xl">
                     Upgrade your account to post as many team opportunities as you need and find your dream startup crew.
                   </p>
