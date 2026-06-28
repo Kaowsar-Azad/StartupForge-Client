@@ -10,7 +10,8 @@ export default function DashboardRedirectPage() {
 
   useEffect(() => {
     if (!loading && user) {
-      if (user.role === "admin") router.replace("/dashboard/admin");
+      if (user.role === "unassigned") router.replace("/onboarding");
+      else if (user.role === "admin") router.replace("/dashboard/admin");
       else if (user.role === "founder") router.replace("/dashboard/founder");
       else router.replace("/dashboard/collaborator");
     }
