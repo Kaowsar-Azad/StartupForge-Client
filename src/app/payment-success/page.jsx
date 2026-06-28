@@ -21,8 +21,12 @@ function PaymentSuccessContent() {
         return;
       }
       try {
+        const apiUrl = !(process.env.NEXT_PUBLIC_API_URL || "").includes("localhost")
+          ? ""
+          : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+          
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/payments/confirm`,
+          `${apiUrl}/api/payments/confirm`,
           { session_id: sessionId },
           { withCredentials: true }
         );
