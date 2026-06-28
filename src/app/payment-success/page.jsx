@@ -21,9 +21,7 @@ function PaymentSuccessContent() {
         return;
       }
       try {
-        const apiUrl = !(process.env.NEXT_PUBLIC_API_URL || "").includes("localhost")
-          ? ""
-          : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://auroralib-server.vercel.app";
           
         const res = await axios.post(
           `${apiUrl}/api/payments/confirm`,
@@ -33,7 +31,8 @@ function PaymentSuccessContent() {
         setPayment(res.data.payment);
       } catch (err) {
         console.error("Payment confirmation failed:", err);
-        setError("Failed to verify payment with the server. Please contact support.");
+        const errorMsg = err.response?.data?.message || err.message || "Failed to verify payment";
+        setError(`Failed to verify payment with the server. Error: ${errorMsg}`);
       } finally {
         setLoading(false);
       }
