@@ -22,11 +22,27 @@ function PaymentSuccessContent() {
       }
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://auroralib-server.vercel.app";
+        
+        // Fetch JWT token first to avoid race condition with AuthContext interceptor
+        const tokenRes = await axios.get(
+          `${apiUrl}/api/auth/token`,
+          { withCredentials: true }
+        );
+        const jwtToken = tokenRes.data?.token;
+
+        if (!jwtToken) {
+          throw new Error("No authorization token available. Please log in again.");
+        }
           
         const res = await axios.post(
           `${apiUrl}/api/payments/confirm`,
           { session_id: sessionId },
-          { withCredentials: true }
+          { 
+            headers: {
+              Authorization: `Bearer ${jwtToken}`
+            },
+            withCredentials: true 
+          }
         );
         setPayment(res.data.payment);
       } catch (err) {
