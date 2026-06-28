@@ -60,8 +60,8 @@ function PaymentSuccessContent() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-slate-950 px-4 py-12">
-      <div className="w-full max-w-lg bg-slate-900/80 backdrop-blur-xl rounded-[2rem] border border-slate-800 p-8 sm:p-10 text-center shadow-2xl shadow-blue-900/10 transition-all duration-300">
+    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-slate-50 dark:bg-slate-950 px-4 py-12">
+      <div className="w-full max-w-lg bg-white dark:bg-slate-900/80 backdrop-blur-xl rounded-[2rem] border border-slate-200 dark:border-slate-800 p-8 sm:p-10 text-center shadow-xl dark:shadow-2xl dark:shadow-blue-900/10 transition-all duration-300">
         
         {error ? (
           /* ================= ERROR STATE ================= */
@@ -70,17 +70,17 @@ function PaymentSuccessContent() {
               <CircleXmark className="text-red-500 w-10 h-10" />
             </div>
             
-            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
               Verification Failed
             </h1>
-            <p className="text-sm sm:text-base text-red-400/90 mb-8 px-4">
+            <p className="text-sm sm:text-base text-red-600 dark:text-red-400/90 mb-8 px-4">
               {error}
             </p>
             
             <div className="pt-2">
               <Link
                 href="/dashboard/founder"
-                className="block w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-sm active:scale-[0.98]"
+                className="block w-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-semibold py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-sm active:scale-[0.98]"
               >
                 Back to Dashboard
               </Link>
@@ -93,32 +93,32 @@ function PaymentSuccessContent() {
               <CircleCheck className="text-emerald-500 w-10 h-10" />
             </div>
             
-            <h1 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent mb-4 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-emerald-600 dark:from-blue-400 dark:to-emerald-400 bg-clip-text text-transparent mb-4 tracking-tight">
               Payment Successful!
             </h1>
-            <p className="text-slate-400 text-sm sm:text-base leading-relaxed mb-8 px-2">
+            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-8 px-2">
               Congratulations! You are now a Premium Founder. You can now post unlimited team opportunities on StartupForge.
             </p>
             
             {payment && (
-              <div className="bg-slate-950/50 border border-slate-800/60 p-5 sm:p-6 rounded-2xl text-left text-sm space-y-4 mb-8 shadow-inner">
+              <div className="bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800/60 p-5 sm:p-6 rounded-2xl text-left text-sm space-y-4 mb-8 shadow-inner">
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1.5">
                   <span className="text-slate-500 font-medium">Transaction ID</span>
-                  <span className="font-mono text-blue-400 break-all bg-blue-500/10 px-2 py-0.5 rounded-md">
+                  <span className="font-mono text-blue-600 dark:text-blue-400 break-all bg-blue-50 dark:bg-blue-500/10 px-2 py-0.5 rounded-md">
                     {payment.transaction_id}
                   </span>
                 </div>
                 
-                <div className="flex justify-between items-center pt-2 border-t border-slate-800/50">
+                <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800/50">
                   <span className="text-slate-500 font-medium">Amount Paid</span>
-                  <span className="text-white font-bold text-base">
+                  <span className="text-slate-900 dark:text-white font-bold text-base">
                     ${payment.amount}
                   </span>
                 </div>
                 
-                <div className="flex justify-between items-center pt-2 border-t border-slate-800/50">
+                <div className="flex justify-between items-center pt-2 border-t border-slate-200 dark:border-slate-800/50">
                   <span className="text-slate-500 font-medium">Date</span>
-                  <span className="text-slate-300 font-medium">
+                  <span className="text-slate-700 dark:text-slate-300 font-medium">
                     {new Date(payment.paid_at).toLocaleString()}
                   </span>
                 </div>
@@ -134,7 +134,7 @@ function PaymentSuccessContent() {
               </Link>
               <Link
                 href="/dashboard/founder"
-                className="block w-full flex items-center justify-center bg-transparent border border-slate-700 hover:bg-slate-800 hover:border-slate-600 text-slate-300 font-semibold py-3.5 sm:py-4 rounded-xl transition-all duration-200 active:scale-[0.98]"
+                className="block w-full flex items-center justify-center bg-transparent border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold py-3.5 sm:py-4 rounded-xl transition-all duration-200 active:scale-[0.98]"
               >
                 Go to Dashboard
               </Link>
